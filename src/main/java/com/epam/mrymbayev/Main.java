@@ -1,28 +1,23 @@
 package com.epam.mrymbayev;
 
 import com.epam.mrymbayev.entity.Text;
+import com.epam.mrymbayev.io.exception.ReadingException;
 import com.epam.mrymbayev.parser.SimpleParser;
-import com.epam.mrymbayev.io.TFileReader;
-
-import java.io.FileNotFoundException;
+import com.epam.mrymbayev.io.MTextReader;
+import com.epam.mrymbayev.parser.exception.ParseException;
+import com.epam.mrymbayev.parser.exception.PropertyFilePathException;
 
 /**
  * Hello world!
  */
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws  ReadingException, PropertyFilePathException, ParseException {
 
-        TFileReader reader = new TFileReader();
+        MTextReader reader = new MTextReader();
         String s = reader.getFullText("src/main/resources/File1.txt");
-
         SimpleParser simpleParser = new SimpleParser();
         Text parsedText = simpleParser.parse(s);
         System.out.println(parsedText.toSourceString());
 
-        //PMark pMark = new PMark();
-        //Symbol symbol = new Symbol("s");
-        //System.out.println("Symbol: " + symbol.toSourceString());
-        //pMark.add(symbol);
-        //System.out.println(pMark.toSourceString());
     }
 }

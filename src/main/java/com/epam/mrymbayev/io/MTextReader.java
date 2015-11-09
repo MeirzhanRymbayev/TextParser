@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Created by Meir on 09.11.2015.
  */
-public class TFileReader implements Reader {
+public class MTextReader implements Reader {
     @Override
     public String getFullText(String path) throws ReadingException {
 
