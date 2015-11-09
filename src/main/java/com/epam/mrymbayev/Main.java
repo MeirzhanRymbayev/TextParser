@@ -2,6 +2,8 @@ package com.epam.mrymbayev;
 
 import com.epam.mrymbayev.entity.PMark;
 import com.epam.mrymbayev.entity.Symbol;
+import com.epam.mrymbayev.entity.Text;
+import com.epam.mrymbayev.parser.SimpleParser;
 import com.epam.mrymbayev.reader.TFileReader;
 
 import java.io.FileNotFoundException;
@@ -15,13 +17,14 @@ public class Main {
         TFileReader reader = new TFileReader();
         String s = reader.getFullText("src/main/resources/File1.txt");
 
-        //SimpleParser simpleParser = new SimpleParser();
-        //simpleParser.parse(s);
+        SimpleParser simpleParser = new SimpleParser();
+        Text parsedText = simpleParser.parse(s);
+        System.out.println(parsedText.toSourceString());
 
-        PMark pMark = new PMark();
-        Symbol symbol = new Symbol("s");
-        System.out.println("Symbol: " + symbol.toSourceString());
-        pMark.add(symbol);
-        System.out.println(pMark.toSourceString());
+        //PMark pMark = new PMark();
+        //Symbol symbol = new Symbol("s");
+        //System.out.println("Symbol: " + symbol.toSourceString());
+        //pMark.add(symbol);
+        //System.out.println(pMark.toSourceString());
     }
 }

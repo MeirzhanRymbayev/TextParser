@@ -1,5 +1,6 @@
 package com.epam.mrymbayev.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,6 +8,8 @@ import java.util.List;
  */
 public class Sentence extends AbstractComposite<SentenceToken> {
 
-
+    public Sentence(){
+        components = new ArrayList<>();
+    }
 
 }
