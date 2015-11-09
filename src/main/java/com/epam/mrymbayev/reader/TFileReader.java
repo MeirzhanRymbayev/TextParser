@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class TFileReader implements Reader {
     @Override
     public String getFullText(String path) {
+
         StringBuilder fullText = new StringBuilder();
         Scanner scanner = null;
         try {

@@ -2,6 +2,7 @@ package com.epam.mrymbayev.parser;
 
 import com.epam.mrymbayev.entity.*;
 import com.epam.mrymbayev.entity.Number;
+import com.epam.mrymbayev.parser.exception.PropertyFilePathException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,22 +19,21 @@ public class SimpleParser implements Parser {
 
     private Map<Class<? extends Composite>, String> patterns;  //Map for define kind of regex for current Class
     private Map<Class<? extends Composite>, Class<? extends Component>> componentMap;
-    Properties parserProps = getParserProps("parser.properties"); //All properties was loaded
+    Properties parserProps;
 
     private final String PARAGR_IN_TEXT_REGEX = parserProps.getProperty("paragraph");
     private final String SENTNC_IN_PARAGR = parserProps.getProperty("sentence");
     private final String WORD_IN_SENTNC = parserProps.getProperty("word");
     private final String NUMB_IN_SENTNC = parserProps.getProperty("number");
     private final String PMARK_IN_SENTNC = parserProps.getProperty("punctuation");
-    private final String SPACE = parserProps.getProperty("space");
 
 
-    private Properties getParserProps(String parserProperties) {
+    private Properties getParserProps(String parserProperties) throws PropertyFilePathException {
         Properties properties = new Properties();
         try (InputStream in = Parser.class.getClassLoader().getResourceAsStream(parserProperties)) {
             properties.load(in);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new PropertyFilePathException("Invalid path to property file :" + parserProperties);
         }
         return properties;
     }
@@ -64,19 +64,21 @@ public class SimpleParser implements Parser {
         componentMap.put(getClassForFirstMapParam("text.class"), getClassForSecondMapParam("text.components"));
         componentMap.put(getClassForFirstMapParam("text.components"), getClassForSecondMapParam("paragraph.components"));
         componentMap.put(getClassForFirstMapParam("paragraph.components"), getClassForSecondMapParam("sentence.components"));
-        //componentMap.put(getClassForFirstMapParam("sentence.components"), getClassForSecondMapParam("sentenceToken.components"));
         componentMap.put(Number.class, Symbol.class);
         componentMap.put(Word.class, Symbol.class);
         componentMap.put(PMark.class, Symbol.class);
+        componentMap.put(UnknownToken.class, Symbol.class);
         return componentMap;
     }
 
-    public Text parse(String s) {
+    public Text parse(String s) throws PropertyFilePathException {
         return parse(s, Text.class);
     }
 
     @Override
-    public <T extends Composite> T parse(String sourceString, Class<T> compositeClass) {
+    public <T extends Composite> T parse(String sourceString, Class<T> compositeClass) throws PropertyFilePathException {
+
+        parserProps = getParserProps("parser.properties"); //All properties was loaded
 
         componentMap = setComponentMap();
 
@@ -109,7 +111,7 @@ public class SimpleParser implements Parser {
                         Component c = parse(matchedString, Number.class);
                         t.add(c);
                     } else {
-                        Component c = parse(matchedString, componentClass);
+                        Component c = parse(matchedString, UnknownToken.class);
                         t.add(c);
                     }
 
