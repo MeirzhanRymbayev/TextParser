@@ -29,15 +29,15 @@ public class SimpleParser implements Parser {
 
     private Properties getParserProps(String parserProperties) {
         Properties properties = new Properties();
-            try (InputStream in = Parser.class.getClassLoader().getResourceAsStream(parserProperties)) {
-                properties.load(in);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return properties;
+        try (InputStream in = Parser.class.getClassLoader().getResourceAsStream(parserProperties)) {
+            properties.load(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
     }
 
-    private Class<? extends Composite> getClassForFirstMapParam(String parserPropFileKey){
+    private Class<? extends Composite> getClassForFirstMapParam(String parserPropFileKey) {
         Class<? extends Composite> compositeClass = null;
         try {
             compositeClass = (Class<? extends Composite>) Class.forName(parserProps.getProperty(parserPropFileKey));
@@ -47,7 +47,7 @@ public class SimpleParser implements Parser {
         return compositeClass;
     }
 
-    private Class<? extends Component> getClassForSecondMapParam(String parserPropFileKey){
+    private Class<? extends Component> getClassForSecondMapParam(String parserPropFileKey) {
         Class<? extends Component> componentClass = null;
         try {
             componentClass = (Class<? extends Component>) Class.forName(parserProps.getProperty(parserPropFileKey));
@@ -58,7 +58,7 @@ public class SimpleParser implements Parser {
     }
 
 
-    private Map<Class<? extends Composite>, Class<? extends Component>> setComponentMap(){
+    private Map<Class<? extends Composite>, Class<? extends Component>> setComponentMap() {
         componentMap = new HashMap<>();
         componentMap.put(getClassForFirstMapParam("text.class"), getClassForSecondMapParam("text.components"));
         componentMap.put(getClassForFirstMapParam("text.components"), getClassForSecondMapParam("paragraph.components"));
@@ -67,7 +67,9 @@ public class SimpleParser implements Parser {
         return componentMap;
     }
 
-    public Text parse(String s){return parse(s, Text.class); }
+    public Text parse(String s) {
+        return parse(s, Text.class);
+    }
 
     @Override
     public <T extends Composite> T parse(String sourceString, Class<T> compositeClass) {
@@ -80,29 +82,41 @@ public class SimpleParser implements Parser {
         try {
             t = compositeClass.newInstance();  // map(compositeClass, componentClass)
             regexForComposite = t.getClass().getName(); //Возвращ String подходит чтобы исполь как ключ в pattern Map-е
-            Class componentClass = componentMap.get(compositeClass);
+            Class componentClass; //map(compositeClass, componentClass);
 
+            if ((compositeClass == Word.class) || (compositeClass == PMark.class) ||
+                    (compositeClass == Number.class)) {
+                componentClass = Symbol.class;
+            } else {
+                componentClass = componentMap.get(compositeClass);
+            }
             Pattern p = Pattern.compile(parserProps.getProperty(regexForComposite));
             Matcher matches = p.matcher(sourceString);
-            while(matches.find()){
-                if(componentClass == SentenceToken.class){
+            if (compositeClass == Sentence.class) {
+                while (matches.find()) {
                     String matchedString = matches.group();
-                    if(WORD_IN_SENTNC.matches(matchedString)){
-                        parse(matchedString, Word.class);
-                    } else if(PMARK_IN_SENTNC.matches(matchedString)){
-                        parse(matchedString, PMark.class);
-                    } else if(NUMB_IN_SENTNC.matches(matchedString)){
-                        parse(matchedString, Number.class);
+                    if (WORD_IN_SENTNC.matches(matchedString)) {
+                        Component c = parse(matchedString, Word.class);
+                        t.add(c);
+                    } else if (PMARK_IN_SENTNC.matches(matchedString)) {
+                        Component c = parse(matchedString, PMark.class);
+                        t.add(c);
+                    } else if (NUMB_IN_SENTNC.matches(matchedString)) {
+                        Component c = parse(matchedString, Number.class);
+                        t.add(c);
                     }
-                }
 
-                String string = matches.group();
-                if(componentClass == Symbol.class){
-                    Symbol s = new Symbol(string);
-                    t.add(s);
-                } else {
-                    Component c = parse(string, componentClass);
-                    t.add(c);
+                }
+            } else {
+                while (matches.find()) {
+                    String matchedString = matches.group();
+                    if (componentClass == Symbol.class) {
+                        Symbol s = new Symbol(matchedString);
+                        t.add(s);
+                    } else {
+                        Component c = parse(matchedString, componentClass);
+                        t.add(c);
+                    }
                 }
             }
 
@@ -113,4 +127,6 @@ public class SimpleParser implements Parser {
 
 
     }
+
+
 }
