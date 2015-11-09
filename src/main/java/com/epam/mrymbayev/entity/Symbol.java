@@ -8,6 +8,11 @@ public class Symbol implements Leaf, SentenceToken {
     private char symbol;
 
     public Symbol(String c) {
+        this.symbol = c.charAt(0);
+    }
+
+    public String toSourceString() {
+        return String.valueOf(symbol);
     }
 
 

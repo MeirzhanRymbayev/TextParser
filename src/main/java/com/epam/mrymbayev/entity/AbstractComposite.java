@@ -30,4 +30,11 @@ public class AbstractComposite<E extends Component> implements Composite<E> {
         components.remove(component);
         return false;
     }
+
+    public String toSourceString() {
+        StringBuilder builder = new StringBuilder();
+        for (Component component : components) builder.append(component.toSourceString());
+        return builder.toString();
+    }
+
 }
