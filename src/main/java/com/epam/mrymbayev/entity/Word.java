@@ -11,4 +11,6 @@ public class Word extends AbstractComposite<Symbol> implements SentenceToken {
         components = new ArrayList<>();
     }
 
+
+
 }

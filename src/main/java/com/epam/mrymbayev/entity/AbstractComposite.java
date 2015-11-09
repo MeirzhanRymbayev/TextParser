@@ -1,13 +1,10 @@
 package com.epam.mrymbayev.entity;
 
-import com.epam.mrymbayev.entity.Component;
-import com.epam.mrymbayev.entity.Composite;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Meir on 08.11.2015.
+ * Abstract composite class, parent class for Word, PMark, Number, Sentence, Paragraph, Text classes.
+ * @param <E> Generic - <E extends Component> element
  */
 public class AbstractComposite<E extends Component> implements Composite<E> {
 
@@ -17,11 +14,11 @@ public class AbstractComposite<E extends Component> implements Composite<E> {
         return components;
     }
 
-    public void setComponents(List<Component> components){
+    public void setComponents(List<Component> components) {
         this.components = components;
     }
 
-    public boolean add(E component){
+    public boolean add(E component) {
         components.add(component);
         return true;
     }

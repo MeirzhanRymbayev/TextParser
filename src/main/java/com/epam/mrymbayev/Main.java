@@ -1,5 +1,6 @@
 package com.epam.mrymbayev;
 
+import com.epam.mrymbayev.entity.Component;
 import com.epam.mrymbayev.entity.Text;
 import com.epam.mrymbayev.io.exception.ReadingException;
 import com.epam.mrymbayev.parser.SimpleParser;
@@ -17,7 +18,10 @@ public class Main {
         String s = reader.getFullText("src/main/resources/File1.txt");
         SimpleParser simpleParser = new SimpleParser();
         Text parsedText = simpleParser.parse(s);
-        System.out.println(parsedText.toSourceString());
 
+
+
+        String text = parsedText.toSourceString();
+        System.out.println("Is two texts equal? Answer: [" + s.equals(text) + "]");
     }
 }
