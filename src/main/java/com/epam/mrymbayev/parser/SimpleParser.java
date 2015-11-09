@@ -25,6 +25,7 @@ public class SimpleParser implements Parser {
     private final String WORD_IN_SENTNC = parserProps.getProperty("word");
     private final String NUMB_IN_SENTNC = parserProps.getProperty("number");
     private final String PMARK_IN_SENTNC = parserProps.getProperty("punctuation");
+    private final String SPACE = parserProps.getProperty("space");
 
 
     private Properties getParserProps(String parserProperties) {
@@ -83,7 +84,7 @@ public class SimpleParser implements Parser {
         String regexForComposite;
 
         try {
-            t = compositeClass.newInstance();  // map(compositeClass, componentClass)
+            t = compositeClass.newInstance();  // map(Key = compositeClass, Value = componentClass)
             regexForComposite = t.getClass().getName(); //Возвращ String подходит чтобы исполь как ключ в pattern Map-е
             Class componentClass; //map(compositeClass, componentClass);
 
@@ -107,6 +108,9 @@ public class SimpleParser implements Parser {
                     } else if (matchedString.matches(NUMB_IN_SENTNC)) {
                         Component c = parse(matchedString, Number.class);
                         t.add(c);
+                    } else if (matchedString.matches(SPACE)) {
+                        Component c = parse(matchedString, PMark.class);
+                        t.add(c);
                     } else {
                         Component c = parse(matchedString, componentClass);
                         t.add(c);
@@ -121,7 +125,7 @@ public class SimpleParser implements Parser {
                         t.add(s);
                     } else {
                         Component c = parse(matchedString, componentClass);
-                        t.add(c);
+                        t.add(c); //map(t = composite, c = component)
                     }
                 }
             }
