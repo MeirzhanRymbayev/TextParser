@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class MTextReader implements Reader {
     @Override
     public String getFullText(String path) throws ReadingException {
-
+        System.out.println("Reading file:" + path +"...");
         StringBuilder fullText = new StringBuilder();
         Scanner scanner = null;
         try {
@@ -25,6 +25,7 @@ public class MTextReader implements Reader {
             } finally {
             scanner.close();
         }
+        System.out.println("Reading finished...");
         return fullText.toString();
 
     }
