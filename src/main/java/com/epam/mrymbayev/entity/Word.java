@@ -9,4 +9,5 @@ public class Word extends AbstractComposite<Symbol> implements SentenceToken {
     public Word(String s){
         //(Arrays.asList(s.toCharArray()));
     }
+
 }

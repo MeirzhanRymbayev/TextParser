@@ -3,6 +3,7 @@ package com.epam.mrymbayev.entity;
 import com.epam.mrymbayev.entity.Component;
 import com.epam.mrymbayev.entity.Composite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,9 @@ public class AbstractComposite<E extends Component> implements Composite<E> {
 
     List<Component> components;
 
+    public List<Component> getComponents() {
+        return components;
+    }
 
     public void setComponents(List<Component> components){
         this.components = components;

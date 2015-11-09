@@ -13,8 +13,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
         TFileReader reader = new TFileReader();
-        String s = reader.getFullText("D:/File1.txt");
-        //System.out.println(s);
+        String s = reader.getFullText("src/main/resources/File1.txt");
 
         SimpleParser simpleParser = new SimpleParser();
         simpleParser.parse(s);

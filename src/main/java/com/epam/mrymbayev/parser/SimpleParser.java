@@ -63,7 +63,10 @@ public class SimpleParser implements Parser {
         componentMap.put(getClassForFirstMapParam("text.class"), getClassForSecondMapParam("text.components"));
         componentMap.put(getClassForFirstMapParam("text.components"), getClassForSecondMapParam("paragraph.components"));
         componentMap.put(getClassForFirstMapParam("paragraph.components"), getClassForSecondMapParam("sentence.components"));
-        componentMap.put(getClassForFirstMapParam("sentence.components"), getClassForSecondMapParam("sentenceToken.components"));
+        //componentMap.put(getClassForFirstMapParam("sentence.components"), getClassForSecondMapParam("sentenceToken.components"));
+        componentMap.put(Number.class, Symbol.class);
+        componentMap.put(Word.class, Symbol.class);
+        componentMap.put(PMark.class, Symbol.class);
         return componentMap;
     }
 
@@ -95,14 +98,17 @@ public class SimpleParser implements Parser {
             if (compositeClass == Sentence.class) {
                 while (matches.find()) {
                     String matchedString = matches.group();
-                    if (WORD_IN_SENTNC.matches(matchedString)) {
+                    if (matchedString.matches(WORD_IN_SENTNC)) {
                         Component c = parse(matchedString, Word.class);
                         t.add(c);
-                    } else if (PMARK_IN_SENTNC.matches(matchedString)) {
+                    } else if (matchedString.matches(PMARK_IN_SENTNC)) {
                         Component c = parse(matchedString, PMark.class);
                         t.add(c);
-                    } else if (NUMB_IN_SENTNC.matches(matchedString)) {
+                    } else if (matchedString.matches(NUMB_IN_SENTNC)) {
                         Component c = parse(matchedString, Number.class);
+                        t.add(c);
+                    } else {
+                        Component c = parse(matchedString, componentClass);
                         t.add(c);
                     }
 
@@ -121,6 +127,7 @@ public class SimpleParser implements Parser {
             }
 
             return t;
+
         } catch (InstantiationException | IllegalAccessException ignored) {
             throw new RuntimeException();
         }
