@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * Created by Meir on 09.11.2015.
  */
-public class FileReader implements Reader {
+public class TFileReader implements Reader {
     @Override
     public String getFullText(String path) {
         StringBuilder fullText = new StringBuilder();

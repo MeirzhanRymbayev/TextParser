@@ -1,9 +1,9 @@
 package com.epam.mrymbayev;
 
-import com.epam.mrymbayev.reader.FileReader;
-import com.epam.mrymbayev.reader.Reader;
+import com.epam.mrymbayev.entity.Text;
+import com.epam.mrymbayev.parser.SimpleParser;
+import com.epam.mrymbayev.reader.TFileReader;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -12,8 +12,11 @@ import java.io.FileNotFoundException;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
-        FileReader reader = new FileReader();
+        TFileReader reader = new TFileReader();
         String s = reader.getFullText("D:/File1.txt");
-        System.out.println(s);
+        //System.out.println(s);
+
+        SimpleParser simpleParser = new SimpleParser();
+        simpleParser.parse(s);
     }
 }

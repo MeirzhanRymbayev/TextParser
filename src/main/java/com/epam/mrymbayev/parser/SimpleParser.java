@@ -1,6 +1,7 @@
 package com.epam.mrymbayev.parser;
 
 import com.epam.mrymbayev.entity.*;
+import com.epam.mrymbayev.entity.Number;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +25,6 @@ public class SimpleParser implements Parser {
     private final String WORD_IN_SENTNC = parserProps.getProperty("word");
     private final String NUMB_IN_SENTNC = parserProps.getProperty("number");
     private final String PMARK_IN_SENTNC = parserProps.getProperty("punctuation");
-    private final String SPACE = parserProps.getProperty("space");
 
 
     private Properties getParserProps(String parserProperties) {
@@ -67,7 +67,7 @@ public class SimpleParser implements Parser {
         return componentMap;
     }
 
-
+    public Text parse(String s){return parse(s, Text.class); }
 
     @Override
     public <T extends Composite> T parse(String sourceString, Class<T> compositeClass) {
@@ -75,29 +75,26 @@ public class SimpleParser implements Parser {
         componentMap = setComponentMap();
 
         T t;
-        String keyForRegexProp;
+        String regexForComposite;
 
         try {
-            t = compositeClass.newInstance();
+            t = compositeClass.newInstance();  // map(compositeClass, componentClass)
+            regexForComposite = t.getClass().getName(); //Возвращ String подходит чтобы исполь как ключ в pattern Map-е
             Class componentClass = componentMap.get(compositeClass);
-            keyForRegexProp = t.getClass().getName(); //Возвращ String подходит чтобы исполь как ключ в pattern Map-е
 
-            Pattern p = Pattern.compile(parserProps.getProperty(keyForRegexProp));
+            Pattern p = Pattern.compile(parserProps.getProperty(regexForComposite));
             Matcher matches = p.matcher(sourceString);
             while(matches.find()){
                 if(componentClass == SentenceToken.class){
                     String matchedString = matches.group();
                     if(WORD_IN_SENTNC.matches(matchedString)){
-                        parse(matchedString, componentClass);
+                        parse(matchedString, Word.class);
                     } else if(PMARK_IN_SENTNC.matches(matchedString)){
-                        parse(matchedString, componentClass);
+                        parse(matchedString, PMark.class);
                     } else if(NUMB_IN_SENTNC.matches(matchedString)){
-                        parse(matchedString, componentClass);
-                    } else if(SPACE.matches(matchedString)){
-                        parse(matchedString, componentClass);
+                        parse(matchedString, Number.class);
                     }
                 }
-
 
                 String string = matches.group();
                 if(componentClass == Symbol.class){
@@ -109,11 +106,11 @@ public class SimpleParser implements Parser {
                 }
             }
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            return t;
+        } catch (InstantiationException | IllegalAccessException ignored) {
+            throw new RuntimeException();
         }
 
-        return null;
+
     }
 }
