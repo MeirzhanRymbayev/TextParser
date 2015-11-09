@@ -108,9 +108,6 @@ public class SimpleParser implements Parser {
                     } else if (matchedString.matches(NUMB_IN_SENTNC)) {
                         Component c = parse(matchedString, Number.class);
                         t.add(c);
-                    } else if (matchedString.matches(SPACE)) {
-                        Component c = parse(matchedString, PMark.class);
-                        t.add(c);
                     } else {
                         Component c = parse(matchedString, componentClass);
                         t.add(c);
