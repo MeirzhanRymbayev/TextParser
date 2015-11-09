@@ -1,10 +1,8 @@
 package com.epam.mrymbayev;
 
-import com.epam.mrymbayev.entity.PMark;
-import com.epam.mrymbayev.entity.Symbol;
 import com.epam.mrymbayev.entity.Text;
 import com.epam.mrymbayev.parser.SimpleParser;
-import com.epam.mrymbayev.reader.TFileReader;
+import com.epam.mrymbayev.io.TFileReader;
 
 import java.io.FileNotFoundException;
 

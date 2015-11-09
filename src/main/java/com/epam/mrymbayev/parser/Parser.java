@@ -1,6 +1,7 @@
 package com.epam.mrymbayev.parser;
 
 import com.epam.mrymbayev.entity.Composite;
+import com.epam.mrymbayev.parser.exception.ParseException;
 import com.epam.mrymbayev.parser.exception.PropertyFilePathException;
 
 /**
@@ -8,9 +9,7 @@ import com.epam.mrymbayev.parser.exception.PropertyFilePathException;
  */
 public interface Parser {
 
-
-    public <T extends Composite> T parse(String sourceString, Class<T> compositeClass)
-            throws PropertyFilePathException;
-
+    <T extends Composite> T parse(String sourceString, Class<T> compositeClass)
+                                throws ParseException, PropertyFilePathException;
 
 }

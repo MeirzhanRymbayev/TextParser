@@ -1,4 +1,4 @@
-package com.epam.mrymbayev.reader.exception;
+package com.epam.mrymbayev.io.exception;
 
 /**
  * Created by Meir on 10.11.2015.

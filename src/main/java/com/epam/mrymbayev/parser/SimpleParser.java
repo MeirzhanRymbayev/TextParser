@@ -2,6 +2,7 @@ package com.epam.mrymbayev.parser;
 
 import com.epam.mrymbayev.entity.*;
 import com.epam.mrymbayev.entity.Number;
+import com.epam.mrymbayev.parser.exception.ParseException;
 import com.epam.mrymbayev.parser.exception.PropertyFilePathException;
 
 import java.io.IOException;
@@ -71,12 +72,13 @@ public class SimpleParser implements Parser {
         return componentMap;
     }
 
-    public Text parse(String s) throws PropertyFilePathException {
+    public Text parse(String s) throws ParseException, PropertyFilePathException {
         return parse(s, Text.class);
     }
 
     @Override
-    public <T extends Composite> T parse(String sourceString, Class<T> compositeClass) throws PropertyFilePathException {
+    public <T extends Composite> T parse(String sourceString, Class<T> compositeClass)
+                                                        throws ParseException, PropertyFilePathException {
 
         parserProps = getParserProps("parser.properties"); //All properties was loaded
 
@@ -133,6 +135,8 @@ public class SimpleParser implements Parser {
 
         } catch (InstantiationException | IllegalAccessException ignored) {
             throw new RuntimeException();
+        } catch (Exception e){
+            throw new ParseException("Error in parsing method parse()");
         }
 
 
