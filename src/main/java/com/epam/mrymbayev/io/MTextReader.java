@@ -8,17 +8,16 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * Created by Meir on 09.11.2015.
+ *
  */
 public class MTextReader implements Reader {
     Logger ioLog = Logger.getLogger(MTextReader.class);
 
     @Override
     public String getFullText(final String path) throws ReadingException {
-        ioLog.info("Try to find \"" + path + "\" file to read.");
-        //System.out.println("Reading file \"" + path +"\"...");
         StringBuilder fullText = new StringBuilder();
         Scanner scanner = null;
+        ioLog.info("Try to find \"" + path + "\" file to read.");
         try {
             scanner = new Scanner(new File(path)).useDelimiter("\\Z");
             ioLog.info("File found.");
@@ -29,10 +28,10 @@ public class MTextReader implements Reader {
         } catch (FileNotFoundException e) {
             ioLog.error("File " + path + " not found. Please, check path to file.");
             throw new ReadingException("File " + path + " found. Please, use correct path to file.");
-            } finally {
+        } finally {
             scanner.close();
         }
-        ioLog.info("Reading finish success.");
+        ioLog.info("Reading finish successfully.");
         return fullText.toString();
 
     }

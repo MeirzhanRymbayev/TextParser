@@ -1,7 +1,6 @@
 package com.epam.mrymbayev.io;
 
 import com.epam.mrymbayev.io.exception.ReadingException;
-
 import java.io.FileNotFoundException;
 
 /**

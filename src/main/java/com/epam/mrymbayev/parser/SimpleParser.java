@@ -4,6 +4,7 @@ import com.epam.mrymbayev.entity.*;
 import com.epam.mrymbayev.entity.Number;
 import com.epam.mrymbayev.parser.exception.ParseException;
 import com.epam.mrymbayev.parser.exception.PropertyFilePathException;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,20 +15,33 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Meir on 08.11.2015.
+ * SimpleParser class has method parse() which parse passed sourceString parameter
+ * into Words, PMarks, Numbers, Sentences, Paragraphs, Text classes.
+ *
+ * @author Rymbayev Meirzhan
+ * @version 1.0
+ * @see Parser
  */
 public class SimpleParser implements Parser {
+    private static final Logger log = Logger.getLogger(SimpleParser.class);
 
     private Map<Class<? extends Composite>, String> patternsMap;  //Map for define kind of regex for current Class
     private Map<Class<? extends Composite>, Class<? extends Component>> componentMap;
-    private Properties parserProps; //All properties was loaded
+    private Properties parserProps;
 
     public SimpleParser() throws PropertyFilePathException {
+        log.info("Created new instance of SimpleParser");
         this.parserProps = getParserProps("parser.properties");
         this.componentMap = setComponentMap();
         this.patternsMap = setPatternsMap();
+        log.info("SimpleParser fields was initialized.");
     }
 
+    /**
+     * Method set componentMap field of SimpleParser instance
+     * @return Map of text entity pairs. componentMap(Text.class, Paragraph.class)... etc.
+     * @throws PropertyFilePathException
+     */
     private Map<Class<? extends Composite>, Class<? extends Component>> setComponentMap() throws PropertyFilePathException {
         componentMap = new HashMap<>();
         componentMap.put(getClassForFirstMapParam("text.class"), getClassForSecondMapParam("paragraph.class"));
@@ -40,6 +54,11 @@ public class SimpleParser implements Parser {
         return componentMap;
     }
 
+    /**
+     * Method set patternsMap field of SimpleParser instance
+     * @return Map of text entity pairs. componentMap(Text.class, String regexForSplitIntoParagraph)... etc.
+     * @throws PropertyFilePathException
+     */
     private Map<Class<? extends Composite>, String> setPatternsMap() throws PropertyFilePathException {
         patternsMap = new HashMap<>();
         patternsMap.put(getClassForFirstMapParam("text.class"), parserProps.getProperty("textToParagrRegex"));
@@ -56,11 +75,17 @@ public class SimpleParser implements Parser {
         try (InputStream in = Parser.class.getClassLoader().getResourceAsStream(parserProperties)) {
             properties.load(in);
         } catch (IOException e) {
+            log.error("Invalid path to property file :" + parserProperties);
             throw new PropertyFilePathException("Invalid path to property file :" + parserProperties);
         }
         return properties;
     }
-
+    /**
+     * Method returns Key for componentMap, patternsMap from parser.properties
+     * @return componentMap key. For Example, Text.class (just ? extends Composite elements)
+     * @throws PropertyFilePathException
+     * @see SimpleParser methods setPatternsMap(), setComponentMap()
+     */
     private Class<? extends Composite> getClassForFirstMapParam(String parserPropFileKey) throws PropertyFilePathException {
         Class<? extends Composite> compositeClass = null;
         try {
@@ -71,6 +96,12 @@ public class SimpleParser implements Parser {
         return compositeClass;
     }
 
+    /**
+     * Method returns Value for componentMap from parser.properties
+     * @return componentMap Value. For Example, Paragraph.class (just ? extends Component elements)
+     * @throws PropertyFilePathException
+     * @see SimpleParser methods setPatternsMap()
+     */
     private Class<? extends Component> getClassForSecondMapParam(String parserPropFileKey) throws PropertyFilePathException {
         Class<? extends Component> componentClass = null;
         try {
@@ -81,15 +112,31 @@ public class SimpleParser implements Parser {
         return componentClass;
     }
 
-
-
-    public Text parse(String s) throws ParseException, PropertyFilePathException {
-        return parse(s, Text.class);
+    /**
+     * Overload parse(String sourceString, Class<T> compositeClass) method.
+     * Contribute to make it easy method call.
+     * @param sourceString String which we need to parse
+     * @return
+     * @throws ParseException
+     * @throws PropertyFilePathException
+     * @see SimpleParser parse(String sourceString, Class<T> compositeClass) method.
+     */
+    public Text parse(String sourceString) throws ParseException, PropertyFilePathException {
+        return parse(sourceString, Text.class);
     }
 
+    /**
+     * Recursively method to parse sourceString parameter.
+     * @param sourceString
+     * @param compositeClass
+     * @param <T>
+     * @return <T extends Composite> T instance. Par
+     * @throws ParseException
+     * @throws PropertyFilePathException
+     */
     @Override
     public <T extends Composite> T parse(String sourceString, Class<T> compositeClass)
-                                                        throws ParseException, PropertyFilePathException {
+            throws ParseException, PropertyFilePathException {
 
         final String IS_WORD = parserProps.getProperty("word");
         final String IS_NUMBER = parserProps.getProperty("number");
@@ -115,15 +162,15 @@ public class SimpleParser implements Parser {
                 while (matches.find()) {
                     Component c;
                     String matchedString = matches.group();
-                        if (matchedString.matches(IS_WORD)) {
-                            c = parse(matchedString, Word.class);
-                        } else if (matchedString.matches(IS_PMARK)) {
-                            c = parse(matchedString, PMark.class);
-                        } else if (matchedString.matches(IS_NUMBER)) {
-                            c = parse(matchedString, Number.class);
-                        } else {
-                            c = parse(matchedString, UnknownToken.class);
-                        }
+                    if (matchedString.matches(IS_WORD)) {
+                        c = parse(matchedString, Word.class);
+                    } else if (matchedString.matches(IS_PMARK)) {
+                        c = parse(matchedString, PMark.class);
+                    } else if (matchedString.matches(IS_NUMBER)) {
+                        c = parse(matchedString, Number.class);
+                    } else {
+                        c = parse(matchedString, UnknownToken.class);
+                    }
                     t.add(c);
                 }
             } else {
@@ -143,7 +190,7 @@ public class SimpleParser implements Parser {
 
         } catch (InstantiationException | IllegalAccessException ignored) {
             throw new RuntimeException();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ParseException("Error in parsing method parse()");
         }
 
