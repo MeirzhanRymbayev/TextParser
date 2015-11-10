@@ -39,6 +39,7 @@ public class SimpleParser implements Parser {
 
     /**
      * Method set componentMap field of SimpleParser instance
+     *
      * @return Map of text entity pairs. componentMap(Text.class, Paragraph.class)... etc.
      * @throws PropertyFilePathException
      */
@@ -56,6 +57,7 @@ public class SimpleParser implements Parser {
 
     /**
      * Method set patternsMap field of SimpleParser instance
+     *
      * @return Map of text entity pairs. componentMap(Text.class, String regexForSplitIntoParagraph)... etc.
      * @throws PropertyFilePathException
      */
@@ -80,8 +82,10 @@ public class SimpleParser implements Parser {
         }
         return properties;
     }
+
     /**
      * Method returns Key for componentMap, patternsMap from parser.properties
+     *
      * @return componentMap key. For Example, Text.class (just ? extends Composite elements)
      * @throws PropertyFilePathException
      * @see SimpleParser methods setPatternsMap(), setComponentMap()
@@ -98,6 +102,7 @@ public class SimpleParser implements Parser {
 
     /**
      * Method returns Value for componentMap from parser.properties
+     *
      * @return componentMap Value. For Example, Paragraph.class (just ? extends Component elements)
      * @throws PropertyFilePathException
      * @see SimpleParser methods setPatternsMap()
@@ -115,8 +120,9 @@ public class SimpleParser implements Parser {
     /**
      * Overload parse(String sourceString, Class<T> compositeClass) method.
      * Contribute to make it easy method call.
+     *
      * @param sourceString String which we need to parse
-     * @return
+     * @return <T extends Composite> T parsed instance.
      * @throws ParseException
      * @throws PropertyFilePathException
      * @see SimpleParser parse(String sourceString, Class<T> compositeClass) method.
@@ -127,10 +133,10 @@ public class SimpleParser implements Parser {
 
     /**
      * Recursively method to parse sourceString parameter.
-     * @param sourceString
-     * @param compositeClass
-     * @param <T>
-     * @return <T extends Composite> T instance. Par
+     *
+     * @param sourceString String which we need to parse
+     * @param <T>          compositeClass Class which we need to get
+     * @return <T extends Composite> T parsed instance.
      * @throws ParseException
      * @throws PropertyFilePathException
      */

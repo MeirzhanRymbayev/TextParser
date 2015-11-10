@@ -11,4 +11,8 @@ public class Sentence extends AbstractComposite<SentenceToken> {
         components = new ArrayList<>();
     }
 
+    public boolean isSentence(){ return true;}
+
+
+
 }

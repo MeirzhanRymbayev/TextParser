@@ -22,6 +22,24 @@ public class AbstractComposite<E extends Component> implements Composite<E> {
     }
 
     /**
+     * Method get element from components list by index of element
+     * @param index index of element which should be return
+     * @return return element of list by index parameter
+     */
+    public Component getComponentAt(int index){
+        return components.get(index);
+    }
+
+    /**
+     * Method remove element from components list by index of element
+     * @param index index of element which should be deleted
+     * @return return components without deleted element
+     */
+    public List<Component> removeComponentAt(int index){
+        return (List<Component>) components.remove(index);
+    }
+
+    /**
      * Set this.components field of object to parameter which is passed
      * @param components
      */
