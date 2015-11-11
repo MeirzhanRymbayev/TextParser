@@ -27,9 +27,12 @@ public class Main {
 
     public static void main(String[] args) throws ReadingException, PropertyFilePathException, ParseException {
 
+
         MeirReader reader = new MeirReader();
+        log.info("MeirReader instance was created.");
         String s = reader.getFullText("src/main/resources/File1.txt");
         SimpleParser simpleParser = new SimpleParser();
+        log.info("SimpleParser instance was created.");
         Text parsedText = simpleParser.parse(s);
 
 
