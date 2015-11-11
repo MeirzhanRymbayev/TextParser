@@ -8,7 +8,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- *
+ * MeirReader class
+ * @author Rymbayev Meirzhan
+ * @version 1.0
+ * @see Reader
  */
 public class MeirReader implements Reader {
     Logger ioLog = Logger.getLogger(MeirReader.class);

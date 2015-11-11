@@ -1,6 +1,10 @@
 package com.epam.mrymbayev.entity;
 
 /**
+ * Symbol class
+ * @author Rymbayev Meirzhan
+ * @version 1.0
+ * @see Leaf
  * Created by Meir on 08.11.2015.
  */
 public class Symbol implements Leaf, SentenceToken {

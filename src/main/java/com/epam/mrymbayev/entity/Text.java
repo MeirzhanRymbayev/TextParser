@@ -5,7 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by Meir on 08.11.2015.
+ * Text class
+ * @author Rymbayev Meirzhan
+ * @version 1.0
+ * @see AbstractComposite
+ * @see Paragraph
  */
 public class Text extends AbstractComposite<Paragraph> {
 
