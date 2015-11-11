@@ -1,6 +1,8 @@
 package com.epam.mrymbayev.entity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Meir on 08.11.2015.
@@ -12,6 +14,42 @@ public class Sentence extends AbstractComposite<SentenceToken> {
     }
 
     public boolean isSentence(){ return true;}
+
+    /**
+     * Method find last word of sentence
+     * @return return last word of sentence
+     */
+    public Word getLastWord(){
+        int tokenIndex = components.size() - 1;
+        while(true){
+            if(components.get(tokenIndex).getClass() == Word.class) break;
+            tokenIndex--;
+        }
+        return (Word) components.get(tokenIndex);
+    }
+
+    /**
+     * Method find first word of sentence
+     * @return return first word of sentence
+     */
+    public Word getFirstWord(){
+        int tokenIndex = 0;
+        while(true){
+            if(components.get(tokenIndex).getClass() == Word.class) break;
+            tokenIndex++;
+        }
+        return (Word) components.get(tokenIndex);
+    }
+
+    public Sentence reverseWords(Word firstWord, Word secondWord){
+        List<Component> resultSentence = new LinkedList<>(this.components);
+            int indexOfFisrtWord = components.indexOf(firstWord);
+            int indexOfLastWord = components.indexOf(secondWord);
+            resultSentence.set(indexOfFisrtWord, secondWord);
+            resultSentence.set(indexOfLastWord, firstWord);
+        this.components = resultSentence;
+        return this;
+    }
 
 
 

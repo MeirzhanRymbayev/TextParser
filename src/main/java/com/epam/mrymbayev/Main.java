@@ -14,7 +14,10 @@ import com.epam.mrymbayev.io.exception.ReadingException;
 import com.epam.mrymbayev.parser.SimpleParser;
 import com.epam.mrymbayev.parser.exception.ParseException;
 import com.epam.mrymbayev.parser.exception.PropertyFilePathException;
+import com.epam.mrymbayev.task.Task5;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 /**
  * Hello world!
@@ -23,18 +26,17 @@ public class Main {
 
     private static final Logger log = Logger.getLogger(Main.class);
 
-    public static void main(String[] args) throws ReadingException, PropertyFilePathException, ParseException {
+    public static void main(String[] args) throws ReadingException, PropertyFilePathException, ParseException  {
 
         MTextReader reader = new MTextReader();
         String s = reader.getFullText("src/main/resources/File1.txt");
         SimpleParser simpleParser = new SimpleParser();
         Text parsedText = simpleParser.parse(s);
 
-        for (Component component: parsedText.getComponents()) {
-            System.out.println(component.toSourceString());
-        }
 
-        Sentence sentence = new Sentence();
+        Task5 myTask = new Task5();
+        Text text = myTask.execute(parsedText);
+        System.out.println(text.toSourceString());
 
 
     }
