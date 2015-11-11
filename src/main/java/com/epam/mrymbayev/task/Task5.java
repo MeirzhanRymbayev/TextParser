@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * It is class were work with parsed text will be made
+ * Task5 class
+ * It is class were task N5 will be executed
+ * @author Rymbayev Meirzhan
+ * @version 1.0
+ * @see Task
  */
 public class Task5 implements Task {
 
@@ -35,13 +39,12 @@ public class Task5 implements Task {
             for (Sentence sentence : oldParagraph) {
                 Word firstWord = sentence.getFirstWord();
                 Word lastWord = sentence.getLastWord();
-                log.info("First and last words of sentence was found.");
                 Sentence resultSentence = sentence.reverseWords(firstWord, lastWord);
-                log.info("Words place's were replaced each other.");
                 resultParagraph.add(resultSentence);
             }
             resultText.add(new Paragraph(resultParagraph));
         }
+                log.info("Words in sentences place's were replaced each other.");
         log.info("Result text ready.");
         return resultText;
     }

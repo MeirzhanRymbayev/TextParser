@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Paragraph class
+ * @author Rymbayev Meirzhan
+ * @version 1.0
+ * @see AbstractComposite
  * Created by Meir on 08.11.2015.
  */
 public class Paragraph extends AbstractComposite<Sentence> {

@@ -10,11 +10,13 @@ import java.util.Scanner;
 /**
  *
  */
-public class MTextReader implements Reader {
-    Logger ioLog = Logger.getLogger(MTextReader.class);
+public class MeirReader implements Reader {
+    Logger ioLog = Logger.getLogger(MeirReader.class);
 
     @Override
     public String getFullText(final String path) throws ReadingException {
+        ioLog.info("Hello! This is text parser lib. \n Task number is 5. \n We need replace first and last words " +
+                "in sentences each other. \n Path to file get in Main.class" );
         StringBuilder fullText = new StringBuilder();
         Scanner scanner = null;
         ioLog.info("Try to find \"" + path + "\" file to read.");

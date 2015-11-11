@@ -6,10 +6,9 @@ package com.epam.mrymbayev;
 
 5.	В каждом предложении текста поменять местами первое слово с последним, не изменяя длины предложения.
 */
-import com.epam.mrymbayev.entity.Component;
-import com.epam.mrymbayev.entity.Sentence;
+
 import com.epam.mrymbayev.entity.Text;
-import com.epam.mrymbayev.io.MTextReader;
+import com.epam.mrymbayev.io.MeirReader;
 import com.epam.mrymbayev.io.exception.ReadingException;
 import com.epam.mrymbayev.parser.SimpleParser;
 import com.epam.mrymbayev.parser.exception.ParseException;
@@ -17,18 +16,18 @@ import com.epam.mrymbayev.parser.exception.PropertyFilePathException;
 import com.epam.mrymbayev.task.Task5;
 import org.apache.log4j.Logger;
 
-import java.util.List;
-
 /**
- * Hello world!
+ * Main class
+ * @author Rymbayev Meirzhan
+ * @version 1.0
  */
 public class Main {
 
     private static final Logger log = Logger.getLogger(Main.class);
 
-    public static void main(String[] args) throws ReadingException, PropertyFilePathException, ParseException  {
+    public static void main(String[] args) throws ReadingException, PropertyFilePathException, ParseException {
 
-        MTextReader reader = new MTextReader();
+        MeirReader reader = new MeirReader();
         String s = reader.getFullText("src/main/resources/File1.txt");
         SimpleParser simpleParser = new SimpleParser();
         Text parsedText = simpleParser.parse(s);

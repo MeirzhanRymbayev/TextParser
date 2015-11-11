@@ -7,7 +7,7 @@ import java.util.List;
  * @param <E> Generic - <E extends Component> element
  * @author Rymbayev Meirzhan
  * @version 1.0
- * @see com.epam.mrymbayev.entity.Composite
+ * @see Composite
  */
 public class AbstractComposite<E extends Component> implements Composite<E> {
 

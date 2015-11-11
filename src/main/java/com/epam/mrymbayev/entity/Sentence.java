@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Sentence class
+ * @author Rymbayev Meirzhan
+ * @version 1.0
+ * @see AbstractComposite
  * Created by Meir on 08.11.2015.
  */
 public class Sentence extends AbstractComposite<SentenceToken> {
