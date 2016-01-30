@@ -4,11 +4,13 @@ import com.epam.mrymbayev.entity.Text;
 import com.epam.mrymbayev.entity.Word;
 import org.apache.log4j.Logger;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class SpringInterviewTask implements Task {
     Logger log = Logger.getLogger(SpringInterviewTask.class);
+
     @Override
     public Text execute(Text parsedText) {
         throw new UnsupportedOperationException();
@@ -46,7 +48,7 @@ public class SpringInterviewTask implements Task {
 
 
     public void writeToFile(String s, String path) {
-        try(PrintWriter out = new PrintWriter(path)) {
+        try (PrintWriter out = new PrintWriter(path)) {
             out.println(s);
             log.info("Text was wrote to " + path);
         } catch (FileNotFoundException e) {

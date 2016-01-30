@@ -15,18 +15,6 @@ public class Word extends AbstractComposite<Symbol> implements SentenceToken {
         components = new ArrayList<>();
     }
 
-//    public static void main(String[] args) {
-//        int x = 4, c = 8;
-//        System.out.println(x | c);
-//
-////        char c = '\u0000';
-////        char d = 0;
-////        int s = (int) c;
-////        System.out.println(c == d);
-////        System.out.println(4 | 3);
-////        System.out.println("end");
-//    }
-
     public boolean isWord() {
         return true;
     }

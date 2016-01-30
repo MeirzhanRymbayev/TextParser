@@ -85,8 +85,9 @@ public class AbstractComposite<E extends Component> implements Composite<E> {
 
     /**
      * This method can get all types of text elements except PMark, Number, Unknown classes.
+     *
      * @param clazz Type of class which objects we need
-     * @param list Method needs to get List object that will be keep the clazz objects.
+     * @param list  Method needs to get List object that will be keep the clazz objects.
      * @param <T>
      * @return List of the clazz objects that method will find in text.
      */
@@ -95,8 +96,8 @@ public class AbstractComposite<E extends Component> implements Composite<E> {
             if (component.getClass() == clazz) {
                 list.add((T) component);
             } else if (component.getClass() == PMark.class &&
-                        component.getClass() == UnknownToken.class &&
-                        component.getClass() == Number.class) {
+                    component.getClass() == UnknownToken.class &&
+                    component.getClass() == Number.class) {
 
             } else {
                 component.getClazzComponents(clazz, list);
