@@ -1,4 +1,5 @@
-Надежность библиотек Java усыпляет.
-Описанные выше примеры показывают, что в Java все таки есть способы "стрельнуть себе в ногу".
-Как же сделать удаление правильно?
-Правильно, нужно использовать метод итератора, для удаления элемента:
+SpaceX is a company. This company makes rockets. Elon Musk is the boss of this company.
+The company launches a rocket. It goes to space. It carries a satellite. This part goes fine. The rocket then goes back to Earth.
+Elon Musk puts a video on the Internet. It shows the rocket. It is landing. The rocket has four legs. One leg is broken. The rocket falls down and explodes.
+Difficult words: company (business), launch (to send into the air), Earth (our planet), land (to come down from the air onto the ground).
+You can read the original story and watch the video in the Level 3 section.

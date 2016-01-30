@@ -1,5 +1,7 @@
 package com.epam.mrymbayev.entity;
 
+import java.util.List;
+
 /**
  * Composite interface
  * @param <E> Generic - <E extends Component> element

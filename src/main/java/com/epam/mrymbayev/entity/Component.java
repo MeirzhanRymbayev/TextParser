@@ -1,5 +1,7 @@
 package com.epam.mrymbayev.entity;
 
+import java.util.List;
+
 /**
  * Element of Pattern Composite
  * @author Rymbayev Meirzhan
@@ -9,4 +11,7 @@ package com.epam.mrymbayev.entity;
  */
 public interface Component {
     String toSourceString();
+
+    <T extends Component> List<T> getClazzComponents(Class<T> clazz, List list);
+
 }

@@ -1,5 +1,6 @@
 package com.epam.mrymbayev.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @see AbstractComposite
  * @see Paragraph
  */
-public class Text extends AbstractComposite<Paragraph> {
+public class Text extends AbstractComposite<Paragraph> implements Serializable{
 
     public Text(){
         components = new ArrayList<>();
@@ -65,5 +66,7 @@ public class Text extends AbstractComposite<Paragraph> {
         }
         return sentencesList;
     }
+
+
 
 }

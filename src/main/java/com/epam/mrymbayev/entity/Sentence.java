@@ -55,6 +55,18 @@ public class Sentence extends AbstractComposite<SentenceToken> {
         return this;
     }
 
+    public List<Word> getWords(){
+        List<Word> words = new ArrayList<>();
+        for (Component component :
+                components) {
+            if(component.getClass() == Word.class){
+                words.add((Word) component);
+            }
+
+        }
+        return words;
+    }
+
 
 
 }

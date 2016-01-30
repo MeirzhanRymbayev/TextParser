@@ -1,5 +1,7 @@
 package com.epam.mrymbayev.entity;
 
+import java.util.List;
+
 /**
  * Symbol class
  * @author Rymbayev Meirzhan
@@ -8,6 +10,7 @@ package com.epam.mrymbayev.entity;
  * Created by Meir on 08.11.2015.
  */
 public class Symbol implements Leaf, SentenceToken {
+
 
     private char symbol;
 
@@ -19,5 +22,23 @@ public class Symbol implements Leaf, SentenceToken {
         return String.valueOf(symbol);
     }
 
+    @Override
+    public int hashCode() {
+        if(this.symbol == '\u0000') return 0;
+        int hash = (int) this.symbol;
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        Symbol anotherSymbol = (Symbol) obj;
+        if (this.symbol == anotherSymbol.symbol) return true;
+        return false;
+    }
+
+    @Override//TODO realize without Liskov principle
+    public List<Character> getClazzComponents(Class clazz, List list) {
+        return null;
+    }
 }

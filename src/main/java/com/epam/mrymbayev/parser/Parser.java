@@ -15,4 +15,6 @@ public interface Parser {
     <T extends Composite> T parse(String sourceString, Class<T> compositeClass)
                                 throws ParseException, PropertyFilePathException;
 
+    <T extends Composite> T parse(String sourceString) throws ParseException, PropertyFilePathException;
+
 }
