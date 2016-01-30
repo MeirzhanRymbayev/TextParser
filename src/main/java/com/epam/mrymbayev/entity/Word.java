@@ -34,18 +34,19 @@ public class Word extends AbstractComposite<Symbol> implements SentenceToken {
     @Override
     public int hashCode() {
         if (this == null) return 0;
-        int hash = 0;
-        for (Component symbol :
-                components) {
-            hash += symbol.hashCode() * 2;
-        }
-        return hash;
+        String word = this.toSourceString();
+        return word.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
         Word anotherWord = (Word) obj;
+        String word = this.toSourceString();
+        String anotherWordString = anotherWord.toSourceString();
+        return word.equals(anotherWordString);
+
+        /*if(this.components.size() != anotherWord.components.size()) return false;
         boolean result = true;
         for (int i = 0; i < components.size(); i++) {
             Symbol symbol = (Symbol) this.components.get(i);
@@ -53,8 +54,11 @@ public class Word extends AbstractComposite<Symbol> implements SentenceToken {
 
             if (symbol.equals(anotherWordSymbol)) result = false;
         }
-        return result;
+        return result;*/
     }
 
-
+    @Override
+    public String toString() {
+        return this.toSourceString();
+    }
 }
