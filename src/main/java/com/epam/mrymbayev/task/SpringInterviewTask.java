@@ -4,8 +4,7 @@ import com.epam.mrymbayev.entity.Text;
 import com.epam.mrymbayev.entity.Word;
 import org.apache.log4j.Logger;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 
 public class SpringInterviewTask implements Task {
@@ -17,7 +16,7 @@ public class SpringInterviewTask implements Task {
     }
 
     public Map<Word, Integer> getWordsOftenCount(Text text) {
-        List<Word> words = text.getClazzComponents(Word.class, new ArrayList());
+        List<Word> words = text.getComponentsByClass(Word.class, new ArrayList());
         List<Word> wordsCopy = new ArrayList<>(words);
 
         Map<Word, Integer> map = new HashMap<>();
@@ -55,4 +54,5 @@ public class SpringInterviewTask implements Task {
             e.printStackTrace();
         }
     }
+
 }

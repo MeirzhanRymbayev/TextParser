@@ -12,6 +12,6 @@ import java.util.List;
 public interface Component {
     String toSourceString();
 
-    <T extends Component> List<T> getClazzComponents(Class<T> clazz, List list);
+    <T extends Component> List<T> getComponentsByClass(Class<T> clazz, List list);
 
 }

@@ -11,4 +11,6 @@ import java.io.FileNotFoundException;
  */
 public interface Reader {
     String getFullText(String path) throws FileNotFoundException, ReadingException;
+
+    String getPathFromConsole(String inputOrOutputFilePath);
 }

@@ -27,7 +27,11 @@ public class Task5 implements Task {
      */
     @Override
     public Text execute(Text parsedText) {
-        log.info("Execution of task run...");
+
+        log.info("Execution of task run...\n" +
+                " Task number is 5. \n" +
+                " We need to replace first and last words" +
+                " in sentences each other. \n Path to file get in Main.class ");
         Text resultText = new Text();
 
         parsedText.removeEmptyLines();

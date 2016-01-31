@@ -33,12 +33,11 @@ public class Symbol implements Leaf, SentenceToken {
     public boolean equals(Object obj) {
         if(obj == null) return false;
         Symbol anotherSymbol = (Symbol) obj;
-        if (this.symbol == anotherSymbol.symbol) return true;
-        return false;
+        return this.symbol == anotherSymbol.symbol;
     }
 
     @Override//TODO realize without Liskov principle
-    public List<Character> getClazzComponents(Class clazz, List list) {
+    public List<Character> getComponentsByClass(Class clazz, List list) {
         return null;
     }
 }

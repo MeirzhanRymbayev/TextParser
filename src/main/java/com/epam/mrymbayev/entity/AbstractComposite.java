@@ -91,16 +91,16 @@ public class AbstractComposite<E extends Component> implements Composite<E> {
      * @param <T>
      * @return List of the clazz objects that method will find in text.
      */
-    public <T extends Component> List<T> getClazzComponents(Class<T> clazz, List list) {
+    public <T extends Component> List<T> getComponentsByClass(Class<T> clazz, List list) {
         for (Component component : components) {
             if (component.getClass() == clazz) {
                 list.add((T) component);
             } else if (component.getClass() == PMark.class &&
                     component.getClass() == UnknownToken.class &&
                     component.getClass() == Number.class) {
-
+                        //NOP
             } else {
-                component.getClazzComponents(clazz, list);
+                component.getComponentsByClass(clazz, list);
             }
         }
         return list;
