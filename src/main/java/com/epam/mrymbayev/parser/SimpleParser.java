@@ -138,15 +138,11 @@ public class SimpleParser implements Parser {
      * @param <T>          compositeClass Class which we need to get
      * @return <T extends Composite> T parsed instance.
      * @throws ParseException
-     * @throws PropertyFilePathException
      */
     @Override
     public <T extends Composite> T parse(String sourceString, Class<T> compositeClass)
-            throws ParseException, PropertyFilePathException {
+            throws ParseException{
 
-        final String IS_WORD = parserProps.getProperty("word");
-        final String IS_NUMBER = parserProps.getProperty("number");
-        final String IS_PMARK = parserProps.getProperty("punctuation");
 
         T t;
         String regexTSplit;
@@ -166,17 +162,8 @@ public class SimpleParser implements Parser {
             Matcher matches = p.matcher(sourceString);
             if (compositeClass == Sentence.class) {
                 while (matches.find()) {
-                    Component c;
                     String matchedString = matches.group();
-                    if (matchedString.matches(IS_WORD)) {
-                        c = parse(matchedString, Word.class);
-                    } else if (matchedString.matches(IS_PMARK)) {
-                        c = parse(matchedString, PMark.class);
-                    } else if (matchedString.matches(IS_NUMBER)) {
-                        c = parse(matchedString, Number.class);
-                    } else {
-                        c = parse(matchedString, UnknownToken.class);
-                    }
+                    Component c = defineSentenceTokenType(matchedString);
                     t.add(c);
                 }
             } else {
@@ -201,6 +188,32 @@ public class SimpleParser implements Parser {
         }
 
 
+    }
+
+    /**
+     * Method defines sentence token types e.g. Word, Number, Punctuation mark or Unknown token
+     * @param matchedString String object, from where tokens will be searched.
+     * @return Component type subclass e.g. Word, Pmark, Number type.
+     * @throws PropertyFilePathException
+     * @throws ParseException
+     */
+    private Component defineSentenceTokenType(String matchedString) throws PropertyFilePathException, ParseException {
+
+        final String IS_WORD = parserProps.getProperty("word");
+        final String IS_NUMBER = parserProps.getProperty("number");
+        final String IS_PMARK = parserProps.getProperty("punctuation");
+
+        Component c;
+        if (matchedString.matches(IS_WORD)) {
+            c = parse(matchedString, Word.class);
+        } else if (matchedString.matches(IS_PMARK)) {
+            c = parse(matchedString, PMark.class);
+        } else if (matchedString.matches(IS_NUMBER)) {
+            c = parse(matchedString, Number.class);
+        } else {
+            c = parse(matchedString, UnknownToken.class);
+        }
+        return c;
     }
 
 
